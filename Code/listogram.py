@@ -59,11 +59,7 @@ class Listogram(list):
         target = 0
         dart = random.uniform(0, self.tokens)
         for word_and_count in self:
-<<<<<<< HEAD
-            if target <= dart:
-                target += word_and_count[1]
-=======
->>>>>>> 2274d3d ([add] tweet generator code)
+            target += word_and_count[1]
             if target >= dart:
                 return word_and_count[0]
 

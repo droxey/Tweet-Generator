@@ -20,12 +20,7 @@ class Dictogram(dict):
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
-<<<<<<< HEAD
-        word = str(word)
-        if word in list(self.keys()):
-=======
         if word in self:
->>>>>>> 2274d3d ([add] tweet generator code)
             new_count = self[word] + count
             self[word] = new_count
         else:
