@@ -1,0 +1,252 @@
+{
+    "tests": [
+        {
+            "name": "test_add_count (tests.test_dictogram.DictogramTest)",
+            "score": 2.0,
+            "max_score": 2.0
+        },
+        {
+            "name": "test_contains (tests.test_dictogram.DictogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "test_entries (tests.test_dictogram.DictogramTest)",
+            "score": 4.0,
+            "max_score": 4.0
+        },
+        {
+            "name": "test_frequency (tests.test_dictogram.DictogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "test_sample (tests.test_dictogram.DictogramTest)",
+            "score": 5.0,
+            "max_score": 5.0
+        },
+        {
+            "name": "test_tokens (tests.test_dictogram.DictogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "test_types (tests.test_dictogram.DictogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "Make sure we have everything we need to run the Tweet Generator project.",
+            "score": 10.0,
+            "max_score": 10.0
+        },
+        {
+            "name": "test_contains (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 1.5,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_delete (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 3.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_init (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 2.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_items (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 2.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_keys (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 2.5,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_length (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 1.5,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_set_and_get (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 2.5,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_set_twice_and_get (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 2.5,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_values (tests.test_hashtable.HashTableTest)",
+            "score": 0.0,
+            "max_score": 2.5,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_append (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 2.0,
+            "output": "Test Failed: 'NoneType' object has no attribute 'data'\n"
+        },
+        {
+            "name": "test_delete_with_3_items (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: 'NoneType' object has no attribute 'data'\n"
+        },
+        {
+            "name": "test_delete_with_5_items (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: 'NoneType' object has no attribute 'data'\n"
+        },
+        {
+            "name": "test_delete_with_item_not_in_list (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: ValueError not raised\n"
+        },
+        {
+            "name": "test_find (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 4.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_init (tests.test_linkedlist.LinkedListTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "test_init_with_list (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 2.0,
+            "output": "Test Failed: 'NoneType' object has no attribute 'data'\n"
+        },
+        {
+            "name": "test_items_after_append (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_items_after_prepend (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_length_after_append (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_length_after_append_and_prepend (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_length_after_delete (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_length_after_prepend (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 1.0,
+            "output": "Test Failed: \n"
+        },
+        {
+            "name": "test_prepend (tests.test_linkedlist.LinkedListTest)",
+            "score": 0.0,
+            "max_score": 2.0,
+            "output": "Test Failed: 'NoneType' object has no attribute 'data'\n"
+        },
+        {
+            "name": "test_init (tests.test_linkedlist.NodeTest)",
+            "score": 2.0,
+            "max_score": 2.0
+        },
+        {
+            "name": "test_linking_nodes (tests.test_linkedlist.NodeTest)",
+            "score": 3.0,
+            "max_score": 3.0
+        },
+        {
+            "name": "test_add_count (tests.test_listogram.ListogramTest)",
+            "score": 2.0,
+            "max_score": 2.0
+        },
+        {
+            "name": "test_contains (tests.test_listogram.ListogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "test_entries (tests.test_listogram.ListogramTest)",
+            "score": 0.0,
+            "max_score": 4.0,
+            "output": "Test Failed: Element counts were not equal:\nFirst has 1, Second has 0:  ['one', 1]\nFirst has 1, Second has 0:  ['fish', 4]\nFirst has 1, Second has 0:  ['two', 1]\nFirst has 1, Second has 0:  ['red', 1]\nFirst has 1, Second has 0:  ['blue', 1]\nFirst has 0, Second has 1:  ('one', 1)\nFirst has 0, Second has 1:  ('fish', 4)\nFirst has 0, Second has 1:  ('two', 1)\nFirst has 0, Second has 1:  ('red', 1)\nFirst has 0, Second has 1:  ('blue', 1)\n"
+        },
+        {
+            "name": "test_frequency (tests.test_listogram.ListogramTest)",
+            "score": 2.0,
+            "max_score": 2.0
+        },
+        {
+            "name": "test_sample (tests.test_listogram.ListogramTest)",
+            "score": 5.0,
+            "max_score": 5.0
+        },
+        {
+            "name": "test_tokens (tests.test_listogram.ListogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        },
+        {
+            "name": "test_types (tests.test_listogram.ListogramTest)",
+            "score": 1.0,
+            "max_score": 1.0
+        }
+    ],
+    "leaderboard": [
+        {
+            "name": "time",
+            "value": 11.15,
+            "order": "asc"
+        },
+        {
+            "name": "high score",
+            "value": 10,
+            "order": "desc"
+        },
+        {
+            "name": "accuracy",
+            "value": 70.6,
+            "order": "desc"
+        },
+        {
+            "name": "stars",
+            "value": "",
+            "order": "desc"
+        }
+    ],
+    "visibility": "visible",
+    "execution_time": "0.25",
+    "score": 43.0
+}
