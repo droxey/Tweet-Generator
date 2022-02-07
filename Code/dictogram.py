@@ -21,8 +21,7 @@ class Dictogram(dict):
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
         if word in self:
-            new_count = self[word] + count
-            self[word] = new_count
+            self[word] += count
         else:
             self[word] = count
             self.types += 1
@@ -35,12 +34,12 @@ class Dictogram(dict):
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
-        target = 0
+        distance = 0
         dart = random.uniform(0, self.tokens)
-        for key, value in self.items():
-            target += value
-            if target >= dart:
-                return key
+        for word, count in self.items():
+            distance += count
+            if distance >= dart:
+                return word
 
 
 def print_histogram(word_list):
