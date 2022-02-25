@@ -1,3 +1,4 @@
+MARKOVSTART
 BMO: [hitting the ground with its skateboard] Whoo! Whoo! Whoo! Sick! Sick! So sick! Dying!
 Finn: Check it out. I got snacks for while we wait. For Marcy, red lick-rish.
 Marceline: Thanks.
@@ -147,3 +148,4 @@ Jake: Alright, well, it's one month later. Aw, yeah! Here it comes!
 Cheryl: Enjoy Super Porp!
 [Jake gets a can and begins drinking. He spits it out and dumps the can.]
 Jake: Ugh! I jinxed it! [throws can on the ground]
+MARKOVEND

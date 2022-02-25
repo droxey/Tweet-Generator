@@ -1,0 +1,1 @@
+MARKOVSTART I like dogs and you like dogs. I like cats but you hate cats. MARKOVEND

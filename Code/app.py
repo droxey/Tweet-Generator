@@ -1,27 +1,23 @@
 """
 Main script, uses other modules to generate sentences.
 """
-from tokens import read_file
-from dictogram import Dictogram
 from flask import Flask
+from tokens import read_file
+from markov import MarkovChain
+
+
+MARKOV_WALK_DISTANCE = 10
 
 
 app = Flask(__name__)
-word_list = read_file("data/fish.txt")
-histo = Dictogram(word_list=word_list)
-app.logger.info("loading word list")
-
-@app.before_first_request
-def before_first_request():
-    app.logger.info("before_first_request")
-    pass
+word_list = read_file("data/cats.txt")
+markov_chain = MarkovChain(word_list, order=2)
 
 
 @app.route("/")
 def home():
-    """Route that returns a web page containing the generated text."""
-    app.logger.info("home")
-    return histo.sample()
+    """Route that returns a web page containing the generated sentence."""
+    return markov_chain.walk(distance=MARKOV_WALK_DISTANCE)
 
 
 if __name__ == "__main__":

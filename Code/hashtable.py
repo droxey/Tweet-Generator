@@ -41,8 +41,11 @@ class HashTable(object):
     def values(self):
         """Return a list of all values in this hash table.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all buckets
-        # TODO: Collect all values in each bucket
+        all_values = []
+        for bucket in self.buckets:
+            for key, value in bucket.items():
+                all_values.append(value)
+        return all_values
 
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
@@ -68,19 +71,76 @@ class HashTable(object):
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, return value associated with given key
-        # TODO: Otherwise, raise error to tell user get failed
-        # Hint: raise KeyError('Key not found: {}'.format(key))
+        # (1) Find bucket where given key belongs
+        index = self._bucket_index(key)
+        bucket = self.buckets[index]
+
+        # FIXME: THIS CODE IS ALWAYS WRONG (DO NOT ITERATE OVER BUCKETS if you know the key)
+        # for bucket in self.buckets:
+        #     ...
+
+        # (2) Attempt to find key-value entry in bucket (if it exists)
+        # (2a) Define inner function (closure that caputures local key variable)
+        def matches_key(entry):
+            # if entry[0] == key:
+            #     return True
+            # else:
+            #     return False
+            return entry[0] == key
+        # Use matching function as callback for find_if_matches
+        entry = bucket.find_if_matches(matches_key)
+
+        # (2b) Alternative: Define matching function inline as a lambda (anonymous function)
+        entry = bucket.find_if_matches(lambda entry: entry[0] == key)
+        # entry = bucket.find_if_matches(lambda k, v: k == key)  # lambda argument tuple unpacking
+
+        # (3) If found, return value associated with given key
+        if entry is not None:
+            value = entry[1]
+            return value
+        # (3) Otherwise, raise error to tell user get failed
+        else:
+            raise KeyError('Key not found: {}'.format(key))
+
+        # END OF GOOD SOLUTIONS (requires LinkedList::find_if_matches function)
+
+        # (2c) Equivalent non-compartmentalized code if LinkedList::find_if_matches doesn't exist
+        entry = None
+        node = bucket.head
+        # Loop over nodes in this bucket (linked list)
+        while node is not None:
+            entry = node.data
+            # Check if key-value entry matches the key we're looking for
+            if entry[0] == key:
+                value = entry[1]
+                return value
+            # Otherwise, move to the next node in the linked list
+            else:
+                node = node.next
+        # Could not find entry associated with given key (after while loop completes)
+        raise KeyError('Key not found: {}'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        # index = ...
+        # bucket = ...
+
         # TODO: Check if key-value entry exists in bucket
+        # entry = bucket.find_if_matches(...)
+
         # TODO: If found, update value associated with given key
+        # bucket.delete(entry)
+        # new_entry = (key, value)
+        # bucket.append(new_entry)
+
+        # Alternative if you implemented LinkedList::update(old, new) stretch challenge
+        # bucket.replace(entry, new_entry)
+
         # TODO: Otherwise, insert given key-value entry into bucket
+        # entry = (key, value)
+        # bucket.append(entry)
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.

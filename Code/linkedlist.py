@@ -54,7 +54,12 @@ class LinkedList:
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes and count one for each
-
+        count = 0                  # 1 op
+        node = self.head            # 1 op
+        while node is not None:     # n
+            count += 1              # 2 op
+            node = node.next        # 1 op
+        return count        # total: 3n + 2  ==> 2n ==>  O(n) steps (5 doesn't matter for large n)
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -62,7 +67,6 @@ class LinkedList:
         # TODO: Create new node to hold given item
         # TODO: If self.is_empty() == True set the head and the tail to the new node
         # TODO: Else append node after tail
-
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
@@ -75,6 +79,15 @@ class LinkedList:
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item, if present return True otherwise False
+
+    def find_if_matches(self, matching_function):
+        """Return an item from this linked list if it is present."""
+        node = self.head
+        while node:
+            if matching_function(node.data):
+                return node.data
+            node = node.next
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -89,6 +102,6 @@ if __name__ == "__main__":
     my_ll = LinkedList(["A", "B", "C"])
     print(my_ll)
 
-    
+
 
 
