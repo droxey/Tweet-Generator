@@ -1,64 +1,63 @@
-import random
-import dictogram
-import sampling
+from dictogram import Dictogram
+from sampling import sample
 
 
-MARKOV_START_TOKEN = 'markovstart'
-MARKOV_END_TOKEN = 'markovend'
 MARKOV_TEST_ORDER = 2
-MARKOV_TEST_DISTANCE = 10
+MARKOV_TEST_DISTANCE = 15
 
 
 class MarkovChain(object):
-    """ A class that represents an nth order Markov Chain."""
+    """ A class that represents an nth order Markov chain."""
+    MARKOV_START_TOKEN = 'markovstart'      # Add this token to any corpus to indicate the entry point.
+    MARKOV_END_TOKEN = 'markovend'          # Add this token to any corpus to indicate the exit point.
 
     def __init__(self, corpus, order=1):
         """To create a new MarkovChain instance, pass a list representing the corpus, and optionally, the order."""
-        self.corpus = corpus
-        self.order = order
-        self.sentence_tokens = [(MARKOV_START_TOKEN,)]
-        self.markov_dict = dict()
+        self.chain = dict()                 # Store the Markov chain in a dictionary.
+        self.start_window = None            # A tuple that represents the starting point of our sentence.
 
-        # Create word tuples:
-        tuples, group = [], []
-        for word_index in range(len(self.corpus) - self.order):
-            for n in range(self.order):
-                group.append(self.corpus[word_index + n])
-                tuples.append((tuple(group), self.corpus[word_index +  self.order]))
-                group = []
+        for word_index in range(len(corpus) - order):       # Range over corpus length - order (avoid IndexErrors!)
+            word_list = []                                  # Store the word window as a list.
+            for n in range(order):                          # Range over the order integer.
+                word_list.append(corpus[word_index + n])    # Append until the length of word_list == n.
 
-        # Add word tuples to self.markov_dict:
-        for group in tuples:
-            if group[0] in self.markov_dict:    # group[0] is the tuple, group[1] is the token
-                self.markov_dict[group[0]].add_count(group[1])
-            else:
-                self.markov_dict[group[0]] = dictogram.Dictogram([group[1]])
+            window = tuple(word_list)                       # Once we've collected the word list, convert it to a tuple.
+            if window[0] == self.MARKOV_START_TOKEN:        # word_tuple[0] contains the 1st word in the tuple.
+                self.start_window = window                  # Set the start window based on MARKOV_START_TOKEN.
+
+            nth_word = corpus[word_index + order]           # Grab the nth word from the corpus.
+            if window in self.chain:                        # If exists, add the nth_word to the count.
+                self.chain[window].add_count(nth_word)
+            else:                                           # Otherwise, create a new instance of the Dictogram.
+                self.chain[window] = Dictogram([nth_word])
 
     def walk(self, distance=None):
         """Walk the Markov Chain instance to generate a new sentence."""
-        current = random.choice(self.sentence_tokens)
-        output = []
-        steps = 0
-        walking = True
+        words = []                          # A place to hold the sentence as we generate it.
+        window = self.start_window          # Set window to the starting point at the beginning of the walk.
+        walking = True                      # Set to true to walk when called.
 
         while walking:
-            word = sampling.sample(self.markov_dict[current])
-            current = list(current[1:])
-            current.append(word)
-            current = tuple(current)
-            walking = (distance is not None and steps <= distance) and (word != MARKOV_END_TOKEN)
+            word = sample(self.chain[window])
+            window_list = list(window[1:])
+            window_list.append(word)
+            window = tuple(window_list)
+            walking = word != self.MARKOV_END_TOKEN and (distance is not None and len(words) < distance)
             if walking:
-                steps += 1
-                output.append(word)
+                words.append(word)
 
-        return ' '.join(output)
+        return ' '.join(words) + '.'        # Join the list of words to return a sentence.
 
 
 if __name__ == '__main__':
-    import pprint
     import tokens
+    import pprint
 
-    corpus = tokens.read_file('data/cats.txt')
+    corpus = tokens.read_file('/Users/droxey/dev/repos/ACS/grading/runthru/Code/data/cats.txt')
     markov_chain = MarkovChain(corpus=corpus, order=MARKOV_TEST_ORDER)
 
-    pprint.pprint(markov_chain.walk(MARKOV_TEST_DISTANCE))
+    print("MARKOV CHAIN:")
+    pprint.pprint(markov_chain.chain, indent=4)
+    print("=" * 120)
+    print(f"START WINDOW: {markov_chain.start_window}")
+    print(f"RANDOM WALK: {markov_chain.walk(MARKOV_TEST_DISTANCE)}")
