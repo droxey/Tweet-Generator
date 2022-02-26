@@ -16,26 +16,23 @@ class MarkovChain(object):
         """To create a new MarkovChain instance, pass a list representing the corpus, and optionally, the order."""
         self.corpus = corpus
         self.order = order
-        self.sentence_tokens = list()
+        self.sentence_tokens = [(MARKOV_START_TOKEN,)]
         self.markov_dict = dict()
 
-        groups, words = [], []
+        # Create word tuples:
+        tuples, group = [], []
         for word_index in range(len(self.corpus) - self.order):
             for n in range(self.order):
-                words.append(self.corpus[word_index + n])
-                groups.append((tuple(words), self.corpus[word_index +  self.order]))
-                words = []
+                group.append(self.corpus[word_index + n])
+                tuples.append((tuple(group), self.corpus[word_index +  self.order]))
+                group = []
 
-        for group in groups:
-            if group[0] in self.markov_dict:
+        # Add word tuples to self.markov_dict:
+        for group in tuples:
+            if group[0] in self.markov_dict:    # group[0] is the tuple, group[1] is the token
                 self.markov_dict[group[0]].add_count(group[1])
             else:
                 self.markov_dict[group[0]] = dictogram.Dictogram([group[1]])
-
-        for item in list(self.markov_dict.keys()):
-            if item[0] == MARKOV_START_TOKEN:
-                self.sentence_tokens.append(item)
-                break
 
     def walk(self, distance=None):
         """Walk the Markov Chain instance to generate a new sentence."""
