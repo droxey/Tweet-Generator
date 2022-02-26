@@ -16,6 +16,7 @@ class MarkovChain(object):
         """To create a new MarkovChain instance, pass a list representing the corpus, and optionally, the order."""
         self.corpus = corpus
         self.order = order
+        self.sentence_tokens = list()
         self.markov_dict = dict()
 
         groups, words = [], []
@@ -31,36 +32,28 @@ class MarkovChain(object):
             else:
                 self.markov_dict[group[0]] = dictogram.Dictogram([group[1]])
 
-    def walk(self, distance=None):
-        """Walk the Markov Chain instance to generate a new sentence."""
-        output = []
-        tokens = []
-
         for item in list(self.markov_dict.keys()):
             if item[0] == MARKOV_START_TOKEN:
-                tokens.append(item)
+                self.sentence_tokens.append(item)
                 break
 
-        start = random.choice(tokens)
-        for word in start:
-            output.append(word)
-
-        output.pop(0)
-        current = start
-        generating_sentence = True
+    def walk(self, distance=None):
+        """Walk the Markov Chain instance to generate a new sentence."""
+        current = random.choice(self.sentence_tokens)
+        output = []
         steps = 0
+        walking = True
 
-        while generating_sentence:
+        while walking:
             word = sampling.sample(self.markov_dict[current])
             current = list(current[1:])
             current.append(word)
             current = tuple(current)
-            reached_sentence_length = distance is not None and steps >= distance
-            if reached_sentence_length or word == MARKOV_END_TOKEN:
-                generating_sentence = False
-            else:
+            walking = (distance is not None and steps <= distance) and (word != MARKOV_END_TOKEN)
+            if walking:
                 steps += 1
                 output.append(word)
+
         return ' '.join(output)
 
 
@@ -70,4 +63,5 @@ if __name__ == '__main__':
 
     corpus = tokens.read_file('data/cats.txt')
     markov_chain = MarkovChain(corpus=corpus, order=MARKOV_TEST_ORDER)
+
     pprint.pprint(markov_chain.walk(MARKOV_TEST_DISTANCE))
