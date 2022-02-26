@@ -10,7 +10,7 @@ MARKOV_WALK_DISTANCE = 10
 
 
 app = Flask(__name__)
-word_list = read_file("data/cats.txt")
+word_list = read_file("data/corpus.txt")
 markov_chain = MarkovChain(word_list, order=2)
 
 
