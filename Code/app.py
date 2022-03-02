@@ -2,16 +2,18 @@
 Main script, uses other modules to generate sentences.
 """
 from flask import Flask
-from tokens import read_file
+from tokens import tokenize
 from markov import MarkovChain
 
 
-MARKOV_WALK_DISTANCE = 10
+MARKOV_WALK_DISTANCE = 30
+CORPUS_FILE_NAME = 'data/snippet.txt'
 
 
 app = Flask(__name__)
-word_list = read_file("data/corpus.txt")
-markov_chain = MarkovChain(word_list, order=2)
+source = open(CORPUS_FILE_NAME).read()
+tokens = tokenize(source)
+markov_chain = MarkovChain(tokens, order=2)
 
 
 @app.route("/")

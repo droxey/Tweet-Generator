@@ -1,18 +1,36 @@
 """
 Module for creating lists of tokens from a text.
 """
-from cleanup import remove_punctuation
+import re
 
 
-def read_file(source_text):
-    """Read in any body of text, remove punctuation, and turn it into a list."""
-    if isinstance(source_text, list):
-        return source_text
+def split_on_whitespace(text):
+    """Helper function that splits strings and removes all whitespace."""
+    return re.split('\s+', text)
 
-    word_list = []
-    with open(source_text, mode='r', newline="\n") as _file:
-        str = _file.read()
-        clean_str = remove_punctuation(str)
-        word_list = clean_str.split(' ')
 
-    return word_list
+def remove_punctuation(text):
+    """Helper function to remove undesirable characters from our corpus."""
+    txt = re.sub('\[(.+)\]', ' ', text)  # Remove stage directions.
+    txt = re.sub('[,;:—()]', '', txt)  # Remove punctuation.
+    txt = re.sub('♪', '', txt)  # Remove music note.
+    return txt
+
+
+def tokenize(text):
+    """Creates the tokens required by the Markov chain."""
+    no_punc_text = remove_punctuation(text)
+    tokens = split_on_whitespace(no_punc_text)
+    return tokens
+
+
+if __name__ == '__main__':
+    import sys
+
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+        source = open(filename).read()
+        tokens = tokenize(source)
+        print(tokens)
+    else:
+        print('No source text filename given as argument')

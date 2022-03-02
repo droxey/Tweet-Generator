@@ -1,13 +1,25 @@
-"""
-Module for cleaning up source text.
-"""
+import json
+from tokens import remove_punctuation
 import string
-import re
 
-def remove_punctuation(str):
-    """Removes newlines and punctuation from a string."""
-    text = str.lower().replace('\n', ' ').rstrip()
-    text_without_punctuation = ''.join(
-        [i for i in text if i not in string.punctuation])
-    cleaned_text = re.sub(r'[^\w\s]', '', text_without_punctuation)
-    return cleaned_text
+if __name__ == '__main__':
+    quotes = []
+    names = []
+
+    filename = "data/allquotes.json"
+    source = open(filename)
+    data = json.load(source)
+
+    quotes.append("MARKOVSTART")
+    for quote in data:
+        if quote.get('Character') == 'Jake':
+            quotes.append(quote.get('Line'))
+    quotes.append("MARKOVEND")
+
+    all_quotes = " ".join(quotes)
+    corpus_file = open("data/corpus.txt", "w")
+    corpus_file.write(all_quotes)
+
+    all_names = "\n".join(names)
+    names_file = open("data/names.txt", "w")
+    names_file.write(all_names)
