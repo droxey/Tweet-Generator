@@ -2,6 +2,7 @@
 Module for creating lists of tokens from a text.
 """
 import re
+from nltk.corpus import stopwords
 
 
 def split_on_whitespace(text):
@@ -20,7 +21,8 @@ def remove_punctuation(text):
 def tokenize(text):
     """Creates the tokens required by the Markov chain."""
     no_punc_text = remove_punctuation(text)
-    tokens = split_on_whitespace(no_punc_text)
+    words = split_on_whitespace(no_punc_text)
+    tokens = [word for word in words if word not in stopwords.words('english')]
     return tokens
 
 
