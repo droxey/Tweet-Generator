@@ -54,7 +54,7 @@ class LinkedList(object):
         while node is not None:
             items.append(node.data)
             node = node.next
-            return items
+        return items
 
     def is_empty(self):
         """Return a boolean indicating whether this linked list is empty."""
@@ -76,30 +76,37 @@ class LinkedList(object):
         node = Node(item)
         if self.is_empty():
             self.head = node
+            self.tail = node
+            self.size = 1
         else:
             self.tail.next = node
-        self.tail = node
+            self.tail = self.tail.next
+            self.size += 1
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         Running time: O(1) no loops because head is tracked."""
         node = Node(item)
         if self.is_empty():
+            self.head = node
             self.tail = node
+            self.size = 1
         else:
             node.next = self.head
-        self.head = node
+            self.head = node
+            self.size += 1
 
     def find(self, matcher):
         """Return an item from this linked list satisfying the given quality.
         Best case running time: O(1) no loops if head matches.
         Worst case running time: O(n) all elements looped if last node
-            matches or none do."""
+        matches or none do."""
         node = self.head
         while node is not None:
             if matcher(node.data):
                 return node.data
             node = node.next
+        return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
