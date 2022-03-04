@@ -5,6 +5,7 @@ import twitter
 from flask import Flask, redirect, render_template, request
 from tokens import tokenize
 from markov import MarkovChain
+from utils import MARKOV_TEST_ORDER
 
 
 MARKOV_WALK_DISTANCE = 30
@@ -14,13 +15,13 @@ CORPUS_FILE_NAME = 'data/snippet.txt'
 app = Flask(__name__)
 source = open(CORPUS_FILE_NAME).read()
 tokens = tokenize(source)
-markov_chain = MarkovChain(tokens, order=2)
+chain = MarkovChain(tokens, order=MARKOV_TEST_ORDER)
 
 
 @app.route('/')
 def home():
     """Route that returns a web page containing the generated sentence."""
-    sentence = markov_chain.walk(distance=MARKOV_WALK_DISTANCE)
+    sentence = chain.walk(distance=MARKOV_WALK_DISTANCE)
     return render_template('home.html', sentence=sentence)
 
 

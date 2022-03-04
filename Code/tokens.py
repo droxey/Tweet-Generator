@@ -2,7 +2,7 @@
 Module for creating lists of tokens from a text.
 """
 import re
-from nltk.corpus import stopwords
+from utils import ENGLISH_STOPWORDS
 
 
 def split_on_whitespace(text):
@@ -18,21 +18,23 @@ def remove_punctuation(text):
     return txt
 
 
+def remove_stopwords(text):
+    return [word for word in text if word not in ENGLISH_STOPWORDS]
+
+
 def tokenize(text):
     """Creates the tokens required by the Markov chain."""
     no_punc_text = remove_punctuation(text)
     words = split_on_whitespace(no_punc_text)
-    tokens = [word for word in words if word not in stopwords.words('english')]
+    tokens = remove_stopwords(words)
     return tokens
 
 
 if __name__ == '__main__':
     import sys
 
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        source = open(filename).read()
-        tokens = tokenize(source)
-        print(tokens)
-    else:
-        print('No source text filename given as argument')
+    filename = 'data/sample.txt' if len(sys.argv) < 1 else sys.argv[1]
+    source = open(filename).read()
+    tokens = tokenize(source)
+    print('CURRENT CORPUS:', filename)
+    print(tokens)

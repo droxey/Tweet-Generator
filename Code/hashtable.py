@@ -1,5 +1,5 @@
 #!python
-
+import random
 from linkedlist import LinkedList
 
 
@@ -151,6 +151,48 @@ class HashTable(object):
         # TODO: Otherwise, raise error to tell user delete failed
         # Hint: raise KeyError('Key not found: {}'.format(key))
 
-if __name__ == '__main__':
+
+def sample(histogram):
+    """Return a word from a given histogram, randomly sampled by weighting
+    each word's probability of being chosen by its observed frequency."""
+    distance = 0
+    dart = random.uniform(0, histogram.tokens)
+    for word, count in histogram.items():
+        distance += count
+        if distance >= dart:
+            return word
+
+
+def test_hash_table():
     ht = HashTable()
     print('hash table: {}'.format(ht))
+
+    print('\nTesting set:')
+    for key, value in [('I', 1), ('V', 5), ('X', 10)]:
+        print('set({!r}, {!r})'.format(key, value))
+        ht.set(key, value)
+        print('hash table: {}'.format(ht))
+
+    print('\nTesting get:')
+    for key in ['I', 'V', 'X']:
+        value = ht.get(key)
+        print('get({!r}): {!r}'.format(key, value))
+
+    print('contains({!r}): {}'.format('X', ht.contains('X')))
+    print('length: {}'.format(ht.length()))
+
+    # Enable this after implementing delete method
+    delete_implemented = False
+    if delete_implemented:
+        print('\nTesting delete:')
+        for key in ['I', 'V', 'X']:
+            print('delete({!r})'.format(key))
+            ht.delete(key)
+            print('hash table: {}'.format(ht))
+
+        print('contains(X): {}'.format(ht.contains('X')))
+        print('length: {}'.format(ht.length()))
+
+
+if __name__ == '__main__':
+    test_hash_table()

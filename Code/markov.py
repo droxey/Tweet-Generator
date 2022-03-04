@@ -1,20 +1,14 @@
 import random
-from dictogram import Dictogram
-from sampling import sample
+from dictogram import Dictogram, sample
 
 
-MARKOV_TEST_ORDER = 2
-MARKOV_TEST_DISTANCE = 15
-
-
-class MarkovChain(object):
+class MarkovChain(dict):
     """ A class that represents an nth order Markov chain."""
     MARKOV_END_TOKEN = 'MARKOVEND'
 
     def __init__(self, corpus, order=1):
         """To create a new MarkovChain instance, pass a list representing the corpus, and optionally, the order."""
         # Store the Markov chain in a dictionary.
-        self.chain = dict()
         self.windows = list()
 
         # Range over corpus length - order (avoid IndexErrors!)
@@ -35,22 +29,21 @@ class MarkovChain(object):
             # Grab the nth word from the corpus.
             nth_word = corpus[word_index + order]
             # If exists, add the nth_word to the count.
-            if window in self.chain:
-                self.chain[window].add_count(nth_word)
+            if window in self:
+                self[window].add_count(nth_word)
             else:
                 # Otherwise, create a new instance of the Dictogram,
                 # and initialize it with the nth_word.
-                self.chain[window] = Dictogram([nth_word])
+                self[window] = Dictogram([nth_word])
 
     def walk(self, distance=10):
         """Walk the Markov Chain instance to generate a new sentence."""
-        # Set window to the starting point at the beginning of the walk.
         window = random.choice(self.windows)
-        words = []  # A place to hold the sentence as we generate it.
-        walking = True  # Set to true to walk when called.
+        walking = True
+        words = []
 
         while walking:
-            word = sample(self.chain[window])
+            word = sample(self[window])
             window_list = list(window[1:])
             window_list.append(word)
             window = tuple(window_list)
@@ -58,20 +51,20 @@ class MarkovChain(object):
             if walking:
                 words.append(word)
 
-        # Join the list of words to return a sentence.
         return ' '.join(words) + '.'
 
 
 if __name__ == '__main__':
     import tokens
     import pprint
+    from utils import MARKOV_TEST_ORDER, MARKOV_TEST_DISTANCE
 
     corpus = tokens.read_file(
         '/Users/droxey/dev/repos/ACS/grading/runthru/Code/data/cats.txt')
-    markov_chain = MarkovChain(corpus=corpus, order=MARKOV_TEST_ORDER)
+    markov = MarkovChain(corpus=corpus, order=MARKOV_TEST_ORDER)
 
     print("MARKOV CHAIN:")
-    pprint.pprint(markov_chain.chain, indent=4)
+    pprint.pprint(markov, indent=4)
     print("=" * 120)
-    print(f"START WINDOW: {markov_chain.start_window}")
-    print(f"RANDOM WALK: {markov_chain.walk(MARKOV_TEST_DISTANCE)}")
+    print(f"START WINDOW: {markov.start_window}")
+    print(f"RANDOM WALK: {markov.walk(MARKOV_TEST_DISTANCE)}")
