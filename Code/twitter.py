@@ -1,7 +1,8 @@
-import os
 from requests_oauthlib import OAuth1Session
+import os
 import dotenv
 dotenv.load_dotenv('.env')
+
 
 # Authenticate with Twitter using the keys and tokens generated on the Developer Portal:
 # https://developer.twitter.com/en/portal/dashboard

@@ -1,4 +1,0 @@
-- [**Schedule**](ReadMe.md)
-- [**Tweet Generator Tutorial**](https://makeschool.org/mediabook/oa/tutorials/tweet-generator--data-structures---probability-with-python/lets-get-started/)
-- [**Quiz Study Guides**](StudyGuides.md)
-- [**Course Recordings**](https://bit.ly/droxey-vids)
