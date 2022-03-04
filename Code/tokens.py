@@ -13,12 +13,15 @@ def split_on_whitespace(text):
 def remove_punctuation(text):
     """Helper function to remove undesirable characters from our corpus."""
     txt = re.sub('\[(.+)\]', ' ', text)  # Remove stage directions.
-    txt = re.sub('[,;:—()]', '', txt)  # Remove punctuation.
-    txt = re.sub('♪', '', txt)  # Remove music note.
+    txt = re.sub('[,;:()]', '', txt)  # Remove punctuation.
+    txt = txt.replace('♪', '')
+    txt = txt.replace('[', '')
+    txt = txt.replace(']', '')
     return txt
 
 
 def remove_stopwords(text):
+    """Removes stop words from tokens. Based on the list from NTLK."""
     return [word for word in text if word not in ENGLISH_STOPWORDS]
 
 

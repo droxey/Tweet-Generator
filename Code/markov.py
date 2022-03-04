@@ -1,5 +1,5 @@
 import random
-from dictogram import Dictogram, sample
+from dictogram import Dictogram, histogram_sample
 
 
 class MarkovChain(dict):
@@ -43,11 +43,11 @@ class MarkovChain(dict):
         words = []
 
         while walking:
-            word = sample(self[window])
+            word = histogram_sample(self[window])
             window_list = list(window[1:])
             window_list.append(word)
             window = tuple(window_list)
-            walking = word != self.MARKOV_END_TOKEN and len(words) < distance
+            walking = word is not '' and word != self.MARKOV_END_TOKEN and len(words) < distance
             if walking:
                 words.append(word)
 

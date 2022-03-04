@@ -1,15 +1,15 @@
 """
 Main script, uses other modules to generate sentences.
 """
-import twitter
+
 from flask import Flask, redirect, render_template, request
 from tokens import tokenize
 from markov import MarkovChain
-from utils import MARKOV_TEST_ORDER
+from twitter import tweet
+from utils import MARKOV_TEST_ORDER, MARKOV_TEST_DISTANCE
 
 
-MARKOV_WALK_DISTANCE = 30
-CORPUS_FILE_NAME = 'data/snippet.txt'
+CORPUS_FILE_NAME = 'data/corpus.txt'
 
 
 app = Flask(__name__)
@@ -21,14 +21,13 @@ chain = MarkovChain(tokens, order=MARKOV_TEST_ORDER)
 @app.route('/')
 def home():
     """Route that returns a web page containing the generated sentence."""
-    sentence = chain.walk(distance=MARKOV_WALK_DISTANCE)
+    sentence = chain.walk(distance=MARKOV_TEST_DISTANCE)
     return render_template('home.html', sentence=sentence)
 
 
 @app.route('/tweet', methods=['POST'])
 def tweet():
-    status = request.form['sentence']
-    twitter.tweet(status)
+    tweet(request.form['sentence'])
     return redirect('/')
 
 
